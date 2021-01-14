@@ -5,23 +5,42 @@
                 <h1>Hey, Welcome. Signup to access Task Management</h1>
             </div>
         </mat-card-header>
-        <mat-card-content>
-            <div fxLayout="column">
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="Enter your Email here">
-                    <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                </mat-form-field>
-            </div>
-        </mat-card-content>
-        <mat-card-actions fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center">
-            <button mat-raised-button color="primary">Signup</button>
-            <span>Already a Member! <a routerLink="/login">Login</a></span>
-        </mat-card-actions>
+        <form [formGroup]="signupFormGroup" (ngSubmit)="signUp()">
+            <mat-card-content>
+                <div fxLayout="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input required formControlName="name" matInput placeholder="Enter your Name here">
+                        <mat-error *ngIf="signupFormGroup.controls['name'].hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                        <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                    </mat-form-field>
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input required formControlName="email"  matInput placeholder="Enter your Email here">
+                        <mat-error *ngIf="signupFormGroup.controls['email'].hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="signupFormGroup.controls['email'].hasError && !signupFormGroup.controls['email'].hasError('required')">
+                            Please enter a valid email address
+                          </mat-error>
+                        <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
+                    </mat-form-field>
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input required formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                        <mat-error *ngIf="signupFormGroup.controls['password'].hasError('required')">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center">
+                <button [disabled]="signupFormGroup.invalid" mat-raised-button color="primary">Signup</button>
+                <span>Already a Member! <a routerLink="/login">Login</a></span>
+            </mat-card-actions>
+        </form>
     </mat-card>
 </div>
