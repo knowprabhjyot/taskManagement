@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="full-height" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="center">
+    <div class="full-height" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="center flex-start">
         <div fxFlex="20" fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(33.3% - 32px)" fxFlex.lt-sm="100%"
             class="task" *ngFor="let task of taskList">
             <app-task [task]="task"></app-task>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="taskList.length === 0">
+        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="!taskList">
             <span>No Tasks Added Yet</span>
         </div>
     </div>
