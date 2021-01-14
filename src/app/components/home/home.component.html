@@ -1,1 +1,10 @@
-<p>home works!</p>
+<div class="full-height" fxLayout="row">
+    <app-side-nav fxFlex="5" fxFlex.xs="20" fxFlex.sm="10"></app-side-nav>
+    <div fxFlex="95" fxFlex.xs="80" fxFlex.sm="90" class="container">
+        <div fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="center">
+            <div fxFlex="20" fxFlex.md="25" fxFlex.sm="50" fxFlex.xs="100"  class="task" *ngFor="let task of taskList">
+                <app-task [task]="task"></app-task>
+            </div>
+        </div>
+    </div>
+</div>

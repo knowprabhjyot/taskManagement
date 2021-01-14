@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup; 
+  public hide = true;
   constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     const response = this.authService.login(this.loginFormGroup.value.email, this.loginFormGroup.value.password);
     if (response.status === 201) {
       this.router.navigateByUrl('');
+      this.snackBar.open('Successfully Logged In', null, {duration: 2000});
     } else {
       this.snackBar.open(response.message, null, { duration: 2000});
     }
