@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card> 
     <form class="full-width full-height" [formGroup]="createTaskFormGroup" (ngSubmit)="updateTask()">
         <div *ngIf="!isEditable" fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="8px">
             <button mat-mini-fab class="fab-icon" (click)="editTask()">
