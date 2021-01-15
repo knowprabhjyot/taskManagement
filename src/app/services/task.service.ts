@@ -58,7 +58,8 @@ export class TaskService {
     let taskList = this.getTaskList();
     const index = taskList.findIndex((task) => task.id === updatedTask.id);
     taskList[index] = updatedTask;
-    this.taskValue = taskList;
+    let xyz = taskList.filter((task) => task.userId === this.user.id);
+    this.taskListSubject.next(xyz);
     return {
       status: 201,
       message: 'Task Updated Successfully'

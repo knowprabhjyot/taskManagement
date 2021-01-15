@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
-import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class AuthService {
   public userSubject: BehaviorSubject<User>;
 
   constructor() { 
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+    this.userSubject = new BehaviorSubject<User>(this.getUSerFromLocalStorage());
     this.user = this.userSubject.asObservable();
   }
 
@@ -19,13 +18,29 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  public set userValue(user) {
+  public getUSerFromLocalStorage(): User {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  public setUserToLocalStorage(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  public getUserListFromLocalStorage(): User[] {
+    return JSON.parse(localStorage.getItem('userList'));
+  }
+
+  public setUserListToLocalStorage(userList: User[]): void {
+    localStorage.setItem('userList', JSON.stringify(userList));
+  }
+
+  public set userValue(user) {
+    this.setUserToLocalStorage(user);
     this.userSubject.next(user);
   }
 
   public getUserListFromStorage(): User[] {
-    let userList = JSON.parse(localStorage.getItem('userList'));
+    let userList = this.getUserListFromLocalStorage();
     if (!userList) {
       userList = [];
     }
@@ -51,8 +66,9 @@ export class AuthService {
   }
 
   public signUp(user: User) {
-    let userList =  localStorage.getItem('userList') ? JSON.parse(localStorage.getItem('userList')) : [];
+    let userList =  this.getUserListFromStorage();
     user.id = Math.random();
+    user.isAdmin = false;
     userList.push(user);
     this.userValue = user;
     localStorage.setItem('userList', JSON.stringify(userList));

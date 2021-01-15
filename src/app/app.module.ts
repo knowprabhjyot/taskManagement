@@ -13,6 +13,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskComponent } from './components/task/task.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
     SignupComponent,
     LoginComponent,
     TaskComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    AddUserComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
