@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="user" fxLayout="row" fxLayoutAlign="space-between center">
+<mat-toolbar color="primary" *ngIf="user" fxLayout="row" fxLayoutAlign="space-between center">
     <h3>Hello {{user.name}}</h3>
-    <button class="menu-button" mat-stroked-button color="primary" (click)="logout()">Logout</button>    
+    <button class="menu-button color-primary" mat-raised-button color="accent" (click)="logout()">Logout</button>    
 </mat-toolbar>

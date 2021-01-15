@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public createTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
-      width: '400px'
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public addUser(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
-      width: '400px'
+      width: '500'
     });
 
     dialogRef.afterClosed().subscribe(result => {

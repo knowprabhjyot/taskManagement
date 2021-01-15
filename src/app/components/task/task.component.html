@@ -1,6 +1,14 @@
-<mat-card class="container">
+<mat-card>
     <form class="full-width full-height" [formGroup]="createTaskFormGroup" (ngSubmit)="updateTask()">
-        <span *ngIf="!isEditable"> <strong>Title: </strong> {{task.title}}</span>
+        <div *ngIf="!isEditable" fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="8px">
+            <button mat-mini-fab class="fab-icon" (click)="editTask()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" class="fab-icon" (click)="deleteTask()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+        <span *ngIf="!isEditable"><h2>{{task.title}}</h2></span>
         <mat-form-field *ngIf="isEditable" class="full-width" appearance="outline">
             <mat-label>Title</mat-label>
             <input [(ngModel)]="task.title" required formControlName="title" matInput placeholder="Enter Task Title here">
@@ -9,10 +17,10 @@
             </mat-error>
         </mat-form-field>
       <div fxLayout="column" fxLayoutAlign="space-between space-between" class="full-height">
-        <mat-card-content>
-            <p *ngIf="!isEditable">
-                <strong> Description: </strong> {{task.description}}
-            </p>
+        <div>
+            <span *ngIf="!isEditable">
+                {{task.description}}
+            </span>
             <mat-form-field *ngIf="isEditable" class="full-width" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea [(ngModel)]="task.description" required formControlName="description" matInput
@@ -21,15 +29,17 @@
                     Description is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-            <button *ngIf="!isEditable" mat-button (click)="editTask()">Edit</button>
-            <button *ngIf="!isEditable" mat-button (click)="deleteTask()">Delete</button>
+        </div>
+        <div>
+            <!-- <div fxLayout="row" fxLayoutGap="8px" >
+                <button color="accent" fxFlex="50" *ngIf="!isEditable" mat-raised-button (click)="editTask()">Edit</button>
+                <button color="warn" fxFlex="50" *ngIf="!isEditable" mat-raised-button (click)="deleteTask()">Delete</button>
+            </div> -->
             <div *ngIf="isEditable" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
                 <button type="submit" [disabled]="createTaskFormGroup.invalid || !this.createTaskFormGroup.dirty" mat-raised-button color="primary">Update</button>
                 <button (click)="cancel()" mat-raised-button color="warn">Cancel</button>
             </div>
-        </mat-card-actions>
+        </div>
       </div>
     </form>
 </mat-card>
