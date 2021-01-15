@@ -1,0 +1,42 @@
+<mat-card class="container">
+    <form class="full-width full-height" [formGroup]="createUserFormGroup" (ngSubmit)="updateUser()">
+        <span *ngIf="!isEditable"> <strong>Name: </strong> {{user.name}}</span>
+        <mat-form-field *ngIf="isEditable" class="full-width" appearance="outline">
+            <mat-label>name</mat-label>
+            <input [(ngModel)]="user.name" required formControlName="name" matInput
+                placeholder="Enter User's name here">
+            <mat-error *ngIf="createUserFormGroup.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <div fxLayout="column" fxLayoutAlign="space-between space-between" class="full-height">
+            <mat-card-content>
+                <p *ngIf="!isEditable">
+                    <strong> Email: </strong> {{user.email}}
+                </p>
+                <mat-form-field *ngIf="isEditable" class="full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input [(ngModel)]="user.email" required formControlName="email" matInput
+                        placeholder="Enter your Email here">
+                    <mat-error *ngIf="createUserFormGroup.controls['email'].hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error
+                        *ngIf="createUserFormGroup.controls['email'].hasError && !createUserFormGroup.controls['email'].hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-icon color="primary" matPrefix>email</mat-icon>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button *ngIf="!isEditable" mat-button (click)="editUser()">Edit</button>
+                <button *ngIf="!isEditable" mat-button (click)="deleteUser()">Delete</button>
+                <div *ngIf="isEditable" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center">
+                    <button type="submit" [disabled]="createUserFormGroup.invalid || !this.createUserFormGroup.dirty"
+                        mat-raised-button color="primary">Update</button>
+                    <button (click)="cancel()" mat-raised-button color="warn">Cancel</button>
+                </div>
+            </mat-card-actions>
+        </div>
+    </form>
+</mat-card>

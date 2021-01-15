@@ -4,11 +4,22 @@
             class="task" *ngFor="let task of taskList">
             <app-task [task]="task"></app-task>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="!taskList || taskList.length === 0">
+        <div fxFlex="20" fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(33.3% - 32px)" fxFlex.lt-sm="100%"
+        class="task" *ngFor="let user of userList">
+        <app-user [user]="user"></app-user>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="(user && !user.isAdmin) && (!taskList || taskList.length === 0)">
             <span>No Tasks Added Yet</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="user && user.isAdmin && (!userList || userList.length === 0)">
+            <span>No Users Added Yet</span>
         </div>
     </div>
 </div>
-<button class="add-button" mat-fab color="primary" (click)="createTask()" aria-label="Add Task">
+<button class="add-button" *ngIf="!user.isAdmin" mat-fab color="primary" (click)="createTask()" aria-label="Add Task">
+    <mat-icon>add</mat-icon>
+</button>
+
+<button class="add-button" *ngIf="user.isAdmin" mat-fab color="primary" (click)="addUser()" aria-label="Add Task">
     <mat-icon>add</mat-icon>
 </button>
