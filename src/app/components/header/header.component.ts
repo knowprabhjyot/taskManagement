@@ -21,6 +21,12 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+
+  /**
+   *
+   * @memberof HeaderComponent
+   * Logs out the user and sets localstorage user to null
+   */
   public logout(): void {
     this.authService.logout();
     this.router.navigateByUrl('/login');

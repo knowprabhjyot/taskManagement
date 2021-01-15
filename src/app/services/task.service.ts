@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Task } from '../models/task';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
+import { CommonService } from './common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class TaskService {
   public taskList: Observable<Task[]>;
   public taskListSubject: BehaviorSubject<Task[]>;
   public user: User;
-  constructor(private authService: AuthService) {
+
+  constructor(private authService: AuthService, private commonService: CommonService) {
     this.authService.user.subscribe((user) => {
       this.user = user;
     })
@@ -20,8 +22,15 @@ export class TaskService {
     this.taskList = this.taskListSubject.asObservable();
   }
 
+
+  /**
+   *
+   * @returns {Task[]}
+   * @memberof TaskService
+   * Gets task list from storage and filters it based on the logged in user
+   */
   public getTaskListBasedOnUser(): Task[] {
-    let taskList = JSON.parse(localStorage.getItem('taskList'));
+    let taskList = this.commonService.getTaskListFromLocalStorage();
     if (taskList && this.user) {
       taskList = taskList.filter((task) => task.userId === this.user.id);
     } else {
@@ -31,20 +40,26 @@ export class TaskService {
   }
    
   public set taskValue(taskList) {
-    localStorage.setItem('taskList', JSON.stringify(taskList));
+    this.commonService.setTaskListToLocalStorage(taskList);
     this.taskListSubject.next(taskList);
   }
 
+
+  /**
+   *
+   * @param {Task} task
+   * @returns
+   * @memberof TaskService
+   * Creates Task list and sets to localstorage corresponding to signed in user
+   */
   public createTask(task: Task) {
-    let taskList =  localStorage.getItem('taskList') ? JSON.parse(localStorage.getItem('taskList')) : null;
+    let taskList =  this.getTaskList();
     task.id = Math.random();
     task.userId = this.user.id;
-    if (taskList) {
-      taskList.push(task);
-    } else {
-      taskList = [task];
-    }
+    taskList.push(task);
     this.taskValue = taskList;
+
+    // Filters Task list for the current user
     let xyz = taskList.filter((task) => task.userId === this.user.id);
     this.taskListSubject.next(xyz);
     return {
@@ -54,6 +69,14 @@ export class TaskService {
     }
   }
 
+
+  /**
+   *
+   * @param {Task} updatedTask
+   * @returns
+   * @memberof TaskService
+   * Updates Task and updates to local Storage
+   */
   public updateTask(updatedTask: Task) {
     let taskList = this.getTaskList();
     const index = taskList.findIndex((task) => task.id === updatedTask.id);
@@ -66,14 +89,26 @@ export class TaskService {
     }
   }
 
+
+  /**
+   *
+   * @returns {Task[]}
+   * @memberof TaskService
+   * Fetches Task list from localstorage if null, it returns []
+   */
   public getTaskList(): Task[] {
-    let taskList =  localStorage.getItem('taskList') ? JSON.parse(localStorage.getItem('taskList')) : null;
-    if (!taskList) {
-      return []; 
-    }
+    let taskList =  localStorage.getItem('taskList') ? JSON.parse(localStorage.getItem('taskList')) : [];
     return taskList;
   }
 
+
+  /**
+   *
+   * @param {number} id
+   * @returns
+   * @memberof TaskService
+   * Deletes the selected task based on the id
+   */
   public deleteTask(id: number) {
     let taskList = this.getTaskListBasedOnUser();
     let index = taskList.findIndex((task) => task.id === id);

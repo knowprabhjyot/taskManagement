@@ -47,6 +47,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
+
+  /**
+   *
+   * @memberof HomeComponent
+   * Gets user list from the localstorage and removes admin from the UI View
+   */
   public getUserList(): void {
     this.userSubscription = this.userService.userList.subscribe((response) => {
       this.userList = response;

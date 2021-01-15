@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from './models/user';
-import { AuthService } from './services/auth.service';
+import { CommonService } from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,9 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {
-    let userList = this.authService.getUserListFromStorage();
+  constructor(private commonService: CommonService) {
+    // Fetches user List and creates an Admin By default with credentials
+    let userList = this.commonService.getUserListFromStorage();
     const admin = userList.find((user) => user.isAdmin === true);
     if (!admin) {
       const newAdmin: User = {
@@ -20,7 +21,7 @@ export class AppComponent {
         email: 'admin@gmail.com'
       }
       userList.push(newAdmin);
-      this.authService.setUserListToLocalStorage(userList);
+      this.commonService.setUserListToLocalStorage(userList);
     }
   }
 }

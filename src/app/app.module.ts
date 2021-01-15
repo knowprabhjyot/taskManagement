@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { MaterialModule } from './modules/material/material.module';
-import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { SignupComponent } from './components/authentication/signup/signup.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,7 +20,6 @@ import { UserComponent } from './components/user/user.component';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    AuthenticationComponent,
     SignupComponent,
     LoginComponent,
     TaskComponent,

@@ -22,14 +22,19 @@ export class LoginComponent implements OnInit {
     })
   }
 
+
+
+  /**
+   *
+   * @memberof LoginComponent
+   * Logs in the user after the form is valid
+   */
   public login(): void {
     if (this.loginFormGroup.valid) {
       const response = this.authService.login(this.loginFormGroup.value.email, this.loginFormGroup.value.password);
-      console.log(response, 'RESPONSE');
       if (response.status === 201) {
         this.router.navigateByUrl('');
         const taskList = this.taskService.getTaskListBasedOnUser();
-        console.log(taskList, 'NEW TASK LIST');
         this.taskService.taskListSubject.next(taskList);
       }
       this.snackBar.open(response.message, null, {duration: 2000});

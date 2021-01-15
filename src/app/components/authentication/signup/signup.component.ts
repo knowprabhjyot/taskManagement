@@ -22,6 +22,13 @@ export class SignupComponent implements OnInit {
     })
   }
 
+
+
+  /**
+   *
+   * @memberof SignupComponent
+   * Signs up the user after the form is valid
+   */
   public signUp(): void {
     if (this.signupFormGroup.valid) {
       const user = this.signupFormGroup.value;

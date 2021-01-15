@@ -24,6 +24,12 @@ export class AddTaskComponent implements OnInit {
     })
   }
 
+
+  /**
+   *
+   * @memberof AddTaskComponent
+   * Creates Task via Task Service
+   */
   public createTask(): void {
     let task = this.createTaskFormGroup.value;
     const user = this.authService.userValue;
@@ -38,6 +44,12 @@ export class AddTaskComponent implements OnInit {
     this.closeDialog();
   }
 
+
+  /**
+   *
+   * @memberof AddTaskComponent
+   * Closes dialog
+   */
   public closeDialog(): void {
     this.dialogRef.close();
   }

@@ -35,16 +35,26 @@ export class TaskComponent implements OnInit {
     this.task = this.tempData;
   }
 
+
+  /**
+   *
+   * @memberof TaskComponent
+   * Updates Task in the localstorage
+   */
   public updateTask(): void {
     const response = this.taskService.updateTask(this.task);
     if (response.status === 201) {
       this.isEditable = false;
-      this.snackBar.open(response.message, null, { duration: 2000 });
-    } else {
-      this.snackBar.open(response.message, null, { duration: 2000 });
     }
+      this.snackBar.open(response.message, null, { duration: 2000 });
   }
 
+
+  /**
+   *
+   * @memberof TaskComponent
+   * Deletes task from the localstorage
+   */
   public deleteTask(): void {
     const response = this.taskService.deleteTask(this.task.id);
     if (response.status === 200) {
