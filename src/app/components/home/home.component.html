@@ -8,10 +8,10 @@
         class="task" *ngFor="let user of userList">
         <app-user [user]="user"></app-user>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="(user && !user.isAdmin) && (!taskList || taskList.length === 0)">
+        <div fxLayout="row" fxLayoutAlign="center center" class="full-height full-width" *ngIf="(user && !user.isAdmin) && (!taskList || taskList.length === 0)">
             <span>No Tasks Added Yet</span>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="user && user.isAdmin && (!userList || userList.length === 0)">
+        <div fxLayout="row" fxLayoutAlign="center center" class="full-height full-width" *ngIf="user && user.isAdmin && (!userList || userList.length === 0)">
             <span>No Users Added Yet</span>
         </div>
     </div>
