@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   user: User;
-  constructor(private authService: AuthService,  private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService,  private router: Router, private snackBar: MatSnackBar, private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.authService.user.subscribe((response) => {

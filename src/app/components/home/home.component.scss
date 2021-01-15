@@ -5,6 +5,7 @@
 .container {
     padding: 32px 0px;
     height: calc(100vh - 64px);
+    box-sizing: border-box;
 }
 
 .add-button {

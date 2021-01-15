@@ -4,7 +4,7 @@
             class="task" *ngFor="let task of taskList">
             <app-task [task]="task"></app-task>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="!taskList">
+        <div fxLayout="row" fxLayoutAlign="center center" class="full-height" *ngIf="!taskList || taskList.length === 0">
             <span>No Tasks Added Yet</span>
         </div>
     </div>

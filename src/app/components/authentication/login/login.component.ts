@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup; 
   public hide = true;
-  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar, private taskService: TaskService) { }
   
   ngOnInit(): void {
     this.loginFormGroup = new FormGroup({
@@ -22,12 +23,16 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    const response = this.authService.login(this.loginFormGroup.value.email, this.loginFormGroup.value.password);
-    if (response.status === 201) {
-      this.router.navigateByUrl('');
-      this.snackBar.open('Successfully Logged In', null, {duration: 2000});
-    } else {
-      this.snackBar.open(response.message, null, { duration: 2000});
+    if (this.loginFormGroup.valid) {
+      const response = this.authService.login(this.loginFormGroup.value.email, this.loginFormGroup.value.password);
+      console.log(response, 'RESPONSE');
+      if (response.status === 201) {
+        this.router.navigateByUrl('');
+        const taskList = this.taskService.getTaskListBasedOnUser();
+        console.log(taskList, 'NEW TASK LIST');
+        this.taskService.taskListSubject.next(taskList);
+      }
+      this.snackBar.open(response.message, null, {duration: 2000});
     }
   }
 }

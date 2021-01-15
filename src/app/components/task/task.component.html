@@ -1,5 +1,5 @@
 <mat-card class="container">
-    <form class="full-width" [formGroup]="createTaskFormGroup" (ngSubmit)="updateTask()">
+    <form class="full-width full-height" [formGroup]="createTaskFormGroup" (ngSubmit)="updateTask()">
         <span *ngIf="!isEditable"> <strong>Title: </strong> {{task.title}}</span>
         <mat-form-field *ngIf="isEditable" class="full-width" appearance="outline">
             <mat-label>Title</mat-label>
@@ -8,6 +8,7 @@
                 Title is <strong>required</strong>
             </mat-error>
         </mat-form-field>
+      <div fxLayout="column" fxLayoutAlign="space-between space-between" class="full-height">
         <mat-card-content>
             <p *ngIf="!isEditable">
                 <strong> Description: </strong> {{task.description}}
@@ -29,5 +30,6 @@
                 <button (click)="cancel()" mat-raised-button color="warn">Cancel</button>
             </div>
         </mat-card-actions>
+      </div>
     </form>
 </mat-card>
